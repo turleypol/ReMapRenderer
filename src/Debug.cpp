@@ -5,8 +5,8 @@
 //
 
 #include "Debug.h"
-#include <iostream>
 
+#include <iostream>
 
 Debug pDebug;
 
@@ -26,7 +26,7 @@ bool logToFile = true;
 bool logToFile = false;
 #endif
 
-void Debug::Log( const char* message, char* filename, int line, int level )
+void Debug::Log( const char* message, const char* filename, int line, int level )
 {
   // Ignore messages below our loglevel
   if ( level < loglevel )

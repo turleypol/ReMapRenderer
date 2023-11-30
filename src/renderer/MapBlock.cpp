@@ -4,6 +4,9 @@
 //
 
 #include "renderer/MapBlock.h"
+
+#include <cmath>
+
 #include "Config.h"
 #include "Debug.h"
 #include "include.h"
@@ -14,10 +17,8 @@
 #include "renderer/StaticObjects.h"
 #include "renderer/TextureBuffer.h"
 #include "uotype.h"
-#include <cmath>
 
 using namespace std;
-
 
 static SDL_Surface* CreateHuedSurface( SDL_Surface* surface, Uint16 HueID )
 {
@@ -133,8 +134,8 @@ static SDL_Surface* GetStretchedSurface( int y2, int y3, int y4, int* alphas, SD
       {
         float* table =
             BilinearTable[( tsize - (int)tx ) * 32 / texture->w][( (int)ty ) * 32 / texture->w];
-        //        float * table = BilinearTable[(tsize - (int) ty) * 32 / texture->w][(int) tx * 32
-        //        / texture->w];
+        //        float * table = BilinearTable[(tsize - (int) ty) * 32 /
+        //        texture->w][(int) tx * 32 / texture->w];
         float alpha = table[0] * alphas[0] + table[1] * alphas[1] + table[2] * alphas[2] +
                       table[3] * alphas[3];
         LightenPixel( p, (short)alpha );
@@ -170,8 +171,8 @@ static SDL_Surface* GetStretchedSurface( int y2, int y3, int y4, int* alphas, SD
             BilinearTable[( tsize - (int)tx ) * 32 / texture->w][( (int)ty ) * 32 / texture->w];
         float alpha = table[0] * alphas[0] + table[1] * alphas[1] + table[2] * alphas[2] +
                       table[3] * alphas[3];
-        //        float alpha = table[0] * alphas[3] + table[1] * alphas[2] + table[2] * alphas[1] +
-        //        table[3] * alphas[0];
+        //        float alpha = table[0] * alphas[3] + table[1] * alphas[2] +
+        //        table[2] * alphas[1] + table[3] * alphas[0];
         LightenPixel( p, (short)alpha );
       }
 
@@ -184,7 +185,6 @@ static SDL_Surface* GetStretchedSurface( int y2, int y3, int y4, int* alphas, SD
   }
   return surface;
 }
-
 
 cMapblock::cMapblock()
 {
@@ -210,7 +210,6 @@ cMapblock::~cMapblock()
       if ( custom_stretched[i][j] )
         SDL_FreeSurface( custom_stretched[i][j] );
 }
-
 
 static void CreateObject( cEntity* object, unsigned int x, unsigned int y, int z,
                           unsigned int tileid, bool skiptiledata = false )
@@ -255,7 +254,6 @@ bool cMapblock::Generate( int blockx, int blocky )
   this->blockx = blockx;
   this->blocky = blocky;
 
-
   unsigned char xc, yc;
 
   pMapLoader->LoadMapBlock( blockx, blocky, &block );
@@ -294,8 +292,8 @@ bool cMapblock::Generate( int blockx, int blocky )
     /*
     cEntity tmp;
     cEntity * object = NULL;
-    CreateObject(&tmp, x + statics_p->x, y + statics_p->y, statics_p->z, statics_p->TileID);
-    if (tmp.tiledata_flags & TILEDATAFLAG_WET)
+    CreateObject(&tmp, x + statics_p->x, y + statics_p->y, statics_p->z,
+    statics_p->TileID); if (tmp.tiledata_flags & TILEDATAFLAG_WET)
     {
     // Water statics
     object = objects.AddGround();
@@ -321,8 +319,8 @@ bool cMapblock::Generate( int blockx, int blocky )
       object->tileclass = TILE_CLASS_GROUND;
       object->tileid = statics_p->TileID + TILEDATA_MAX_ID_LAND;
       cGroundObject* gObj = static_cast<cGroundObject*>( object );
-      gObj->stretch = 0;  // The land map appears different probably because of stretch = 1, that
-                          // causes the call to GetStretchedSurface and LightenPixel
+      gObj->stretch = 0;  // The land map appears different probably because of stretch = 1,
+                          // that causes the call to GetStretchedSurface and LightenPixel
     }
     else
     {
@@ -416,7 +414,6 @@ bool cMapblock::Generate( int blockx, int blocky )
 
   return true;
 }
-
 
 void cMapblock::RenderType( int type, int x, int y, SDL_Surface* target, SDL_Rect* cliprect )
 {

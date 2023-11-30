@@ -102,7 +102,7 @@ add_executable(ReMapRenderer
     ${SF_RESOURCES}
 )
 
-target_link_libraries(ReMapRenderer SDL2main SDL2)
+target_link_libraries(ReMapRenderer SDL2)#main SDL2)
 if (WIN32)
     target_compile_definitions(ReMapRenderer PUBLIC _CRT_SECURE_NO_WARNINGS)
 endif (WIN32)
@@ -110,5 +110,5 @@ endif (WIN32)
 if (MSVC)
     set (CMAKE_CXX_FLAGS "/O2 /EHsc /MP /Oy /fp:fast")
 else (MSVC)
-    set(CMAKE_CXX_FLAGS "-s -O3 -fomit-frame-pointer -ffast-math")
+    set(CMAKE_CXX_FLAGS "-O3 -ggdb -ffast-math")
 endif(MSVC)

@@ -31,6 +31,7 @@ struct staticentry;
 class MapLoader
 {
 public:
+  virtual ~MapLoader() = default;
   virtual void LoadMapBlock( int x, int y, MulBlock* block ) = 0;
   virtual struct staticinfo* LoadStatics( int x, int y, int& len ) = 0;
 

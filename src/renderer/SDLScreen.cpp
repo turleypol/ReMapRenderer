@@ -4,10 +4,13 @@
 //
 
 #include "renderer/SDLScreen.h"
-#include "SDL/SDL.h"
-#include "include.h"
+
 #include <iostream>
 
+#include "SDL/SDL.h"
+#include "include.h"
+
+using namespace std;
 
 int texture_mem = 0;
 

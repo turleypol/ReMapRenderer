@@ -4,13 +4,13 @@
 //
 
 #include "loaders/ArtLoader.h"
+
 #include "Debug.h"
 #include "SDL/SDL.h"
 #include "loaders/VerdataLoader.h"
 #include "uotype.h"
 
 using namespace std;
-
 
 cArtLoader* pArtLoader = NULL;
 
@@ -79,7 +79,6 @@ Texture* cArtLoader::LoadArt( int index )
 
   return LoadStaticArt( index );
 }
-
 
 Texture* cArtLoader::LoadGroundArt( int index )
 {
@@ -191,14 +190,12 @@ Texture* cArtLoader::LoadGroundArt( int index )
           }
       } */
 
-
   //  delete data;
   // delete rdata;
-  delete imagecolors;
+  delete[] imagecolors;
 
   return texture;
 }
-
 
 Texture* cArtLoader::LoadStaticArt( int index )
 {
@@ -263,8 +260,8 @@ Texture* cArtLoader::LoadStaticArt( int index )
     Uint16* p = ( (Uint16*)surface->pixels ) + y * width;
     Uint16 xOffset = 0, xRun = 0;
     filep = filedata + ( lookuptable[y] + height + 4 ) * 2;
-    /*  	patch.file->seekg(idx.offset + (lookuptable[y] + height + 4) * 2, ios::beg);
-        patch.file->read((char *) &xOffset, 2);
+    /*  	patch.file->seekg(idx.offset + (lookuptable[y] + height + 4) *
+       2, ios::beg); patch.file->read((char *) &xOffset, 2);
         patch.file->read((char *) &xRun, 2); */
     xOffset = *( (Uint16*)filep );
     filep += 2;
@@ -294,7 +291,7 @@ Texture* cArtLoader::LoadStaticArt( int index )
 
   //  delete lookuptable;
   // delete data;
-  delete filedata;
+  delete[] filedata;
 
   return texture;
 }

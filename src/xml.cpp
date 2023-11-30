@@ -1,5 +1,6 @@
 
 #include "xml.h"
+
 #include <cstdlib>
 
 // Charsets
@@ -41,8 +42,8 @@ unsigned int Node::addNode( Node* node )
 // Search for the node
 bool Node::hasNode( const std::string& name ) const
 {
-  register bool found = false;
-  register unsigned int i;
+  bool found = false;
+  unsigned int i;
 
   for ( i = 0; i < nodes.size(); ++i )
     if ( nodes[i]->nodeType() == Element && nodes[i]->name() == name )

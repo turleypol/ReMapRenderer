@@ -25,10 +25,10 @@
 
 #include "../uotype.h"
 
-
 class UOMapPatches
 {
 public:
+  virtual ~UOMapPatches() = default;
   virtual void AddPatch( struct StaticPatch patch ) = 0;
   virtual void DelPatch( unsigned int blockx, unsigned int blocky, unsigned int obj_id ) = 0;
   virtual int GetNewID( int blockx, int blocky ) = 0;
@@ -39,6 +39,5 @@ public:
                            unsigned int newcount, struct staticinfo* src,
                            struct staticinfo* dst ) = 0;
 };
-
 
 #endif  //_MAP_H_

@@ -22,13 +22,12 @@ public:
   Debug();
   ~Debug();
 
-  void Log( const char* message, char* filename, int line, int level );
+  void Log( const char* message, const char* filename, int line, int level );
   void Log( const char* message, int level = LEVEL_MSG );
   void Log( std::string const& message ) { Log( message.c_str() ); }
   int GetLoglevel( void );
   void SetLoglevel( int loglevel );
 };
-
 
 extern Debug pDebug;
 

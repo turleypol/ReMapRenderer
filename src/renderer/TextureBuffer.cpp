@@ -4,6 +4,7 @@
 //
 
 #include "renderer/TextureBuffer.h"
+
 #include "Config.h"
 #include "Debug.h"
 #include "loaders/ArtLoader.h"
@@ -64,7 +65,6 @@ Texture* TextureBuffer::GetArtTexture( unsigned int index )
 
   if ( ( index < 0x0 ) || ( index >= tiledataMaxID ) )
     return NULL;
-
   Texture* result = NULL;
 
   result = artTiles.findEntry( index );
@@ -76,9 +76,7 @@ Texture* TextureBuffer::GetArtTexture( unsigned int index )
 
     result = pArtLoader->LoadArt( index );
     if ( !result )
-    {
       result = new Texture( index );
-    }
     artTiles.addEntry( index, result );
   }
 

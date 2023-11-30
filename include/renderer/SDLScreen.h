@@ -25,8 +25,6 @@
 
 struct SDL_Surface;
 
-using namespace std;
-
 class SDLScreen
 {
 public:

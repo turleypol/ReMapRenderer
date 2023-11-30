@@ -3,17 +3,17 @@
 // Created by: Alexander Oster - tensor@ultima-iris.de
 //
 
+#include <fstream>
+#include <iostream>
+
 #include "Config.h"
 #include "Debug.h"
 #include "Game.h"
 #include "loaders/Map.h"
 #include "renderer/SDLScreen.h"
 #include "renderer/TextureBuffer.h"
-#include <fstream>
-#include <iostream>
 
 using namespace std;
-
 
 SDLScreen* SDLscreen;
 
@@ -27,6 +27,12 @@ extern "C"  // needed by SDL
   {
     pDebug.Log( "Unable to load configuration file - Using defaults ", __FILE__, __LINE__,
                 LEVEL_WARNING );
+  }
+  ofstream file( nConfig::output.c_str(), ios::out | ios::binary );
+  if ( file.fail() )
+  {
+    printf( " error.\n" );
+    return 0;
   }
 
   SDLscreen = new SDLScreen();
@@ -78,13 +84,6 @@ extern "C"  // needed by SDL
   Uint8* data = (Uint8*)malloc( rc_width * rc_height * 3 );
   memset( data, 0, rc_width * rc_height * 3 );
 
-  ofstream file( nConfig::output.c_str(), ios::out | ios::binary );
-  if ( file.fail() )
-  {
-    printf( " error.\n" );
-    goto goto_end;
-  }
-
   file.write( (char*)bmpheader, sizeof( bmpheader ) );
 
   const size_t blockcount = t_pixels / ( rc_width * rc_height );
@@ -125,8 +124,8 @@ extern "C"  // needed by SDL
 
       printf( "\rRendering Block %i/%i...", idx, bcount );
 
-      // Render map block in memory (in a temporary SDL screen of size RENDER_CACHE_WIDTH x
-      // RENDER_CACHE_HEIGHT)
+      // Render map block in memory (in a temporary SDL screen of size
+      // RENDER_CACHE_WIDTH x RENDER_CACHE_HEIGHT)
       SDL_FillRect( SDLscreen->screen, NULL, 0 );
       pGame.GetRenderer()->Rebuild( -blockx * rc_width, -blocky * rc_height );
 
@@ -138,7 +137,8 @@ extern "C"  // needed by SDL
         int w = rc_width;
         int h = rc_height;
 
-        // Scale by 2 for each detail point (total effect is a scale of 1 : pow(2, detail))
+        // Scale by 2 for each detail point (total effect is a scale of 1 :
+        // pow(2, detail))
         for ( int i = 0; i < detail; ++i )
         {
           w /= 2;
@@ -166,7 +166,8 @@ extern "C"  // needed by SDL
       // Write to file the rendered block
       for ( int y = 0; y < ycount; ++y )
       {
-        // Swap RGB bytes to BGR (24 bpp bitmap stores the color bytes in this order)
+        // Swap RGB bytes to BGR (24 bpp bitmap stores the color bytes in this
+        // order)
         const Uint8* src = ( pixels ) + y * rc_width / divisor * 3;
         Uint8* dst = data;
         for ( int x = 0; x < xcount; ++x )
@@ -192,7 +193,6 @@ extern "C"  // needed by SDL
     delete[] scalebuf;
   printf( "\nDone!\n" );
 
-goto_end:
   free( data );
 
   pGame.DeInit();
