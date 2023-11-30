@@ -23,25 +23,25 @@
 #ifndef _TEXTUREBUFFER_H_
 #define _TEXTUREBUFFER_H_
 
-#include "Texture.h"
 #include "../Cache.h"
+#include "Texture.h"
 
-class TextureBuffer  
+class TextureBuffer
 {
 public:
-   TextureBuffer ();
-   virtual ~TextureBuffer ();
+  TextureBuffer();
+  virtual ~TextureBuffer();
 
-   Texture * GetGroundTexture(unsigned int index);
-   Texture * GetArtTexture(unsigned int index);
-   Texture * GetGroundTexmap(unsigned int index);
+  Texture* GetGroundTexture( unsigned int index );
+  Texture* GetArtTexture( unsigned int index );
+  Texture* GetGroundTexmap( unsigned int index );
 
 protected:
-	Cache< Texture > groundTiles;
-	Cache< Texture > artTiles;
-	Cache< Texture > groundTexmaps;
+  Cache<Texture> groundTiles;
+  Cache<Texture> artTiles;
+  Cache<Texture> groundTexmaps;
 };
 
-extern	TextureBuffer	* pTextureBuffer;
+extern TextureBuffer* pTextureBuffer;
 
-#endif //_GROUND_H_
+#endif  //_GROUND_H_

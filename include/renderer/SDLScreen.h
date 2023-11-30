@@ -30,13 +30,13 @@ using namespace std;
 class SDLScreen
 {
 public:
-    SDLScreen ();
-   ~SDLScreen ();
+  SDLScreen();
+  ~SDLScreen();
 
-  int Init (int width, int height);
-  SDL_Surface *screen;
+  int Init( int width, int height );
+  SDL_Surface* screen;
 };
 
 extern float BilinearTable[32][32][4];
 
-#endif //_SDLSCREEN_H_
+#endif  //_SDLSCREEN_H_

@@ -23,26 +23,25 @@
 #ifndef _GROUNDTEXTURES_H_
 #define _GROUNDTEXTURES_H_
 
-#include <fstream>
 #include "../renderer/Texture.h"
+#include <fstream>
 
 class cGroundTextureLoader
 {
 private:
-	std::ifstream * texmapsfile;
-	std::ifstream * texmapsindex;
-	unsigned int groundtex_count;
- 
+  std::ifstream* texmapsfile;
+  std::ifstream* texmapsindex;
+  unsigned int groundtex_count;
+
 public:
-    cGroundTextureLoader (std::string filename, std::string indexname);
-   ~cGroundTextureLoader ();
-   
-   Texture * LoadTexture(int index);
+  cGroundTextureLoader( std::string filename, std::string indexname );
+  ~cGroundTextureLoader();
+
+  Texture* LoadTexture( int index );
 
 protected:
-
 };
 
-extern cGroundTextureLoader * pGroundTextureLoader;
+extern cGroundTextureLoader* pGroundTextureLoader;
 
-#endif //_GROUNDTEXTURES_H_
+#endif  //_GROUNDTEXTURES_H_

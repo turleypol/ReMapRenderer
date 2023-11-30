@@ -29,14 +29,16 @@
 class UOMapPatches
 {
 public:
+  virtual void AddPatch( struct StaticPatch patch ) = 0;
+  virtual void DelPatch( unsigned int blockx, unsigned int blocky, unsigned int obj_id ) = 0;
+  virtual int GetNewID( int blockx, int blocky ) = 0;
 
-   virtual void AddPatch(struct StaticPatch patch) = 0;
-   virtual void DelPatch(unsigned int blockx, unsigned int blocky, unsigned int obj_id) = 0;
-   virtual int GetNewID(int blockx, int blocky) = 0;
-   
-   virtual int GetNewStaticSize(int orig_count, unsigned int blockx, unsigned int blocky, bool &apply_needed) = 0;
-   virtual void ApplyPatch(unsigned int blockx, unsigned int blocky, unsigned int oldcount, unsigned int newcount, struct staticinfo * src, struct staticinfo * dst) = 0;
+  virtual int GetNewStaticSize( int orig_count, unsigned int blockx, unsigned int blocky,
+                                bool& apply_needed ) = 0;
+  virtual void ApplyPatch( unsigned int blockx, unsigned int blocky, unsigned int oldcount,
+                           unsigned int newcount, struct staticinfo* src,
+                           struct staticinfo* dst ) = 0;
 };
 
 
-#endif //_MAP_H_
+#endif  //_MAP_H_

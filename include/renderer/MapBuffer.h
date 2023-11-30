@@ -32,23 +32,23 @@
 class cMapbuffer
 {
 private:
-    typedef std::map<Uint32, cMapblock *>	MapBuffer_t;
-    MapBuffer_t	root;
-    std::vector<cMapblock *>  cache;
+  typedef std::map<Uint32, cMapblock*> MapBuffer_t;
+  MapBuffer_t root;
+  std::vector<cMapblock*> cache;
 
 public:
-    cMapbuffer ();
-    ~cMapbuffer ();
+  cMapbuffer();
+  ~cMapbuffer();
 
-    void Clear();
-    //int GetCount(void) const     { return objectlist.size(); }
+  void Clear();
+  // int GetCount(void) const     { return objectlist.size(); }
 
-    cMapblock * Get (int x, int y);
-    void Add(cMapblock * block);
-    cMapblock * CreateBlock (int x, int y);
-    void FreeBuffer(int blockx, int blocky, int radius);
+  cMapblock* Get( int x, int y );
+  void Add( cMapblock* block );
+  cMapblock* CreateBlock( int x, int y );
+  void FreeBuffer( int blockx, int blocky, int radius );
 };
 
-extern	cMapbuffer	* pMapbuffer;
+extern cMapbuffer* pMapbuffer;
 
-#endif //_MAPBLOCK_H_
+#endif  //_MAPBLOCK_H_

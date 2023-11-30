@@ -23,10 +23,9 @@
 #ifndef _BUFFER_H_
 #define _BUFFER_H_
 
-
 class BufferEntry
 {
- public:
+public:
   BufferEntry();
   virtual ~BufferEntry();
 };
@@ -34,23 +33,22 @@ class BufferEntry
 class Buffer
 {
 private:
-   BufferEntry * * bufferarray;
-   int size;
+  BufferEntry** bufferarray;
+  int size;
 
 public:
-    Buffer ();
-   virtual ~Buffer ();
+  Buffer();
+  virtual ~Buffer();
 
-   int GetSize(void);
+  int GetSize( void );
 
-   virtual void Create(int size);
-   virtual void Free(void);
-   virtual void Flush(void);
-   virtual void Add(int index, BufferEntry * entry);
-   virtual void Delete(int index);
+  virtual void Create( int size );
+  virtual void Free( void );
+  virtual void Flush( void );
+  virtual void Add( int index, BufferEntry* entry );
+  virtual void Delete( int index );
 
-   BufferEntry * Get(int index);
+  BufferEntry* Get( int index );
 };
 
-
-#endif //_BUFFER_H_
+#endif  //_BUFFER_H_

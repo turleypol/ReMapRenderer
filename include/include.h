@@ -26,15 +26,15 @@
 extern int texture_mem;
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
-    #define SDL_RMASK 0xff000000
-    #define SDL_GMASK 0x00ff0000
-    #define SDL_BMASK 0x0000ff00
-    #define SDL_AMASK 0x000000ff
+#define SDL_RMASK 0xff000000
+#define SDL_GMASK 0x00ff0000
+#define SDL_BMASK 0x0000ff00
+#define SDL_AMASK 0x000000ff
 #else
-    #define SDL_AMASK 0xff000000
-    #define SDL_BMASK 0x00ff0000
-    #define SDL_GMASK 0x0000ff00
-    #define SDL_RMASK 0x000000ff
+#define SDL_AMASK 0xff000000
+#define SDL_BMASK 0x00ff0000
+#define SDL_GMASK 0x0000ff00
+#define SDL_RMASK 0x000000ff
 #endif
 
 #define SDL_BITMASK SDL_RMASK, SDL_GMASK, SDL_BMASK, SDL_AMASK
@@ -43,4 +43,4 @@ extern int texture_mem;
 #define SDL_RGB_16_BITMASK 0x7C00, 0x3E0, 0x1F, 0
 #define SDL_RGBA_16_BITMASK 0x7C00, 0x3E0, 0x1F, 0x8000
 
-#endif //_INCLUDE_H_
+#endif  //_INCLUDE_H_

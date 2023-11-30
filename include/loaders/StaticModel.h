@@ -27,68 +27,74 @@
 #include <windows.h>
 #endif
 
-#include <iostream>
-#include <fstream>
-#include <cstring>
+#include "../Buffer.h"
+#include "../renderer/Node.h"
+#include "../uotype.h"
 #include "GL/gl.h"
 #include "GL/glu.h"
-#include "../Buffer.h"
 #include "StaticTextures.h"
-#include "../uotype.h"
-#include "../renderer/Node.h"
+#include <cstring>
+#include <fstream>
+#include <iostream>
 
-  struct QuadVertex {
-   float vertex[3];
-   float u, v;
-   float normal[3];
-  };
+struct QuadVertex
+{
+  float vertex[3];
+  float u, v;
+  float normal[3];
+};
 
-  struct Quad {
-   int texture;
-   int marked;
-   struct QuadVertex vertieces[4];
-   float texcoords[2]; /* unused */
-   float texsize;
-   int gltex;
-   int flags;
-  };
+struct Quad
+{
+  int texture;
+  int marked;
+  struct QuadVertex vertieces[4];
+  float texcoords[2]; /* unused */
+  float texsize;
+  int gltex;
+  int flags;
+};
 
-  struct ModelInfos {
-    int height;
-    unsigned int flags;
-    unsigned char weight;
-    unsigned char quality;
-    unsigned char quantity;
-    unsigned short animid;
-    unsigned char hue;
-    char name[20];
-    char dummy[6];
-  };
+struct ModelInfos
+{
+  int height;
+  unsigned int flags;
+  unsigned char weight;
+  unsigned char quality;
+  unsigned char quantity;
+  unsigned short animid;
+  unsigned char hue;
+  char name[20];
+  char dummy[6];
+};
 
 class StaticModel : public BufferEntry
 {
 private:
- struct Quad * quads;
- int quadcount;
- int modelindex;
- StaticTextures * textures;
- int groundtex;
- float boundaring_box_min[3];
- float boundaring_box_max[3];
- void AddQuadToNodes (float x, float y, float z, struct Quad * quad, cNodeList * nodes, cNodeQuadList * nodequads, struct sStaticObject * object);
- void CreateBoundaries(void);
-public:
- struct ModelInfos infos;
-    int modelflags;
-    StaticModel (int modelindex);
-   ~StaticModel ();
-   void AddToNodes (float x, float y, float z, cNodeList * nodes, cNodeQuadList * nodequads, struct sStaticObject * object);
-   void SetTileData(struct TileDataStaticEntry * tiledata);
-      
- float boundaring_sphere[5];
-protected:
+  struct Quad* quads;
+  int quadcount;
+  int modelindex;
+  StaticTextures* textures;
+  int groundtex;
+  float boundaring_box_min[3];
+  float boundaring_box_max[3];
+  void AddQuadToNodes( float x, float y, float z, struct Quad* quad, cNodeList* nodes,
+                       cNodeQuadList* nodequads, struct sStaticObject* object );
+  void CreateBoundaries( void );
 
+public:
+  struct ModelInfos infos;
+  int modelflags;
+  StaticModel( int modelindex );
+  ~StaticModel();
+  void AddToNodes( float x, float y, float z, cNodeList* nodes, cNodeQuadList* nodequads,
+                   struct sStaticObject* object );
+  void SetTileData( struct TileDataStaticEntry* tiledata );
+
+  float boundaring_sphere[5];
+
+protected:
 };
 
 
-#endif //_STATICMODEL_H_
+#endif  //_STATICMODEL_H_

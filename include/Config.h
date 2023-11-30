@@ -9,20 +9,20 @@ extern unsigned int tiledataMaxID;
 
 namespace nConfig
 {
-	// UO
-    extern int mapindex;
-    extern int widthblocks, heightblocks;
-	extern std::string mulpath;
-	extern int minblockx, maxblockx, minblocky, maxblocky;
-	extern int minx, maxx, miny, maxy;
-	extern int detail;
-    extern int render_shadows;
-    extern int render_underground;
-	extern int cache_art, cache_texture, cache_ground;
-	extern int cache_block;
-	extern std::string output;
-	extern std::string patches;
-	
-	// Function
-	bool	Init();
-};
+// UO
+extern int mapindex;
+extern int widthblocks, heightblocks;
+extern std::string mulpath;
+extern int minblockx, maxblockx, minblocky, maxblocky;
+extern int minx, maxx, miny, maxy;
+extern int detail;
+extern int render_shadows;
+extern int render_underground;
+extern int cache_art, cache_texture, cache_ground;
+extern int cache_block;
+extern std::string output;
+extern std::string patches;
+
+// Function
+bool Init();
+};  // namespace nConfig

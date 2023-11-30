@@ -23,22 +23,22 @@
 #ifndef _TILEDATALOADER_H_
 #define _TILEDATALOADER_H_
 
-#include <fstream>
 #include "uotype.h"
+#include <fstream>
 
 
 class cTileDataLoader
 {
 private:
-    std::ifstream * tiledatafile;
-    bool highseas;
+  std::ifstream* tiledatafile;
+  bool highseas;
 
 public:
-    cTileDataLoader (std::string filename);
-    ~cTileDataLoader ();
-    bool LoadEntry (unsigned int index, struct TileDataStaticEntry * entry);
+  cTileDataLoader( std::string filename );
+  ~cTileDataLoader();
+  bool LoadEntry( unsigned int index, struct TileDataStaticEntry* entry );
 };
 
-extern cTileDataLoader * pTileDataLoader;
+extern cTileDataLoader* pTileDataLoader;
 
-#endif //_TILEDATALOADER_H_
+#endif  //_TILEDATALOADER_H_

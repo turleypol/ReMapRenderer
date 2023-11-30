@@ -26,37 +26,38 @@
 #include "SDL/SDL.h"
 #include "StaticObjects.h"
 
-struct INT_Rect {
-    int x, y, w, h;
+struct INT_Rect
+{
+  int x, y, w, h;
 };
 
 class cMapblock
 {
 private:
-    Sint8 heightmap[10][10];
+  Sint8 heightmap[10][10];
 
-    unsigned short groundids[8][8];
-    int ground_draw_pos[10][10][2];
-    SDL_Surface * custom_stretched[8][8];
-    int hotspots[8][8][2];
-    float alpha_values[9][9];
+  unsigned short groundids[8][8];
+  int ground_draw_pos[10][10][2];
+  SDL_Surface* custom_stretched[8][8];
+  int hotspots[8][8][2];
+  float alpha_values[9][9];
 
-    SDL_Rect outbox;
-    StaticObjectList objects;
+  SDL_Rect outbox;
+  StaticObjectList objects;
 
-    void RenderObjectGround(cEntity *obj, int x, int y, SDL_Surface * target, SDL_Rect * cliprect);
-    void RenderObjectItem(cEntity *obj, int x, int y, SDL_Surface * target, SDL_Rect * cliprect);
+  void RenderObjectGround( cEntity* obj, int x, int y, SDL_Surface* target, SDL_Rect* cliprect );
+  void RenderObjectItem( cEntity* obj, int x, int y, SDL_Surface* target, SDL_Rect* cliprect );
 
 public:
-    cMapblock ();
-    ~cMapblock ();
-    bool Generate(int blockx, int blocky);
-    void RenderType(int type, int x, int y, SDL_Surface * target, SDL_Rect * cliprect = NULL);
+  cMapblock();
+  ~cMapblock();
+  bool Generate( int blockx, int blocky );
+  void RenderType( int type, int x, int y, SDL_Surface* target, SDL_Rect* cliprect = NULL );
 
-    int blockx, blocky;
+  int blockx, blocky;
 
-    void GetBounds(INT_Rect * rect, int x, int y) const;
+  void GetBounds( INT_Rect* rect, int x, int y ) const;
 };
 
 
-#endif //_MAPBLOCK_H_
+#endif  //_MAPBLOCK_H_

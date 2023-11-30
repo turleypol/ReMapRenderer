@@ -5,19 +5,15 @@
 
 #include "Buffer.h"
 #include "Debug.h"
-#include <iostream>
 #include <cstdlib>
+#include <iostream>
 #include <string.h>
 
 using namespace std;
 
-BufferEntry::BufferEntry()
-{
-}
+BufferEntry::BufferEntry() {}
 
-BufferEntry::~BufferEntry()
-{
-}
+BufferEntry::~BufferEntry() {}
 
 Buffer::Buffer()
 {
@@ -27,81 +23,84 @@ Buffer::Buffer()
 
 Buffer::~Buffer()
 {
-  if(bufferarray)
+  if ( bufferarray )
     Free();
 }
 
-int Buffer::GetSize(void)
+int Buffer::GetSize( void )
 {
   return size;
 }
 
-void Buffer::Create(int size)
+void Buffer::Create( int size )
 {
-  if(bufferarray)
+  if ( bufferarray )
     Free();
   this->size = size;
-  bufferarray = (BufferEntry **) malloc(size * 4);
-  memset(bufferarray, 0, size * 4);
+  bufferarray = (BufferEntry**)malloc( size * 4 );
+  memset( bufferarray, 0, size * 4 );
 }
 
-void Buffer::Free(void)
+void Buffer::Free( void )
 {
-  if(!bufferarray)
+  if ( !bufferarray )
     return;
   Flush();
 
-  free(bufferarray);
+  free( bufferarray );
   bufferarray = NULL;
   size = 0;
 }
 
-void Buffer::Flush(void)
+void Buffer::Flush( void )
 {
-  if(!bufferarray)
+  if ( !bufferarray )
     return;
 
-  for (int index = 0; index < size; index++)
-    if(bufferarray[index])
-      delete(bufferarray[index]);
+  for ( int index = 0; index < size; index++ )
+    if ( bufferarray[index] )
+      delete ( bufferarray[index] );
 
-  memset(bufferarray, 0, size * 4);
+  memset( bufferarray, 0, size * 4 );
 }
 
-void Buffer::Add(int index, BufferEntry * entry)
+void Buffer::Add( int index, BufferEntry* entry )
 {
-  if(!bufferarray) {
-    pDebug.Log("NULL buffer array in Buffer::Add(int, BufferEntry *)",
-	       __FILE__, __LINE__, LEVEL_WARNING);
+  if ( !bufferarray )
+  {
+    pDebug.Log( "NULL buffer array in Buffer::Add(int, BufferEntry *)", __FILE__, __LINE__,
+                LEVEL_WARNING );
     return;
   }
 
-  if((index < 0) || (index >= size)) {
-    pDebug.Log("Wrong Index in Buffer::Add(int, BufferEntry *)", __FILE__,
-	       __LINE__, LEVEL_WARNING);
+  if ( ( index < 0 ) || ( index >= size ) )
+  {
+    pDebug.Log( "Wrong Index in Buffer::Add(int, BufferEntry *)", __FILE__, __LINE__,
+                LEVEL_WARNING );
     return;
   }
 
-  if(bufferarray[index])
+  if ( bufferarray[index] )
     delete bufferarray[index];
 
   bufferarray[index] = entry;
 }
 
-void Buffer::Delete(int index)
+void Buffer::Delete( int index )
 {
-  Add(index, NULL);
+  Add( index, NULL );
 }
 
-BufferEntry *Buffer::Get(int index)
+BufferEntry* Buffer::Get( int index )
 {
-  if(!bufferarray) {
-    pDebug.Log("NULL buffer array in Buffer::Get(int)", __FILE__, __LINE__,
-	       LEVEL_WARNING);
+  if ( !bufferarray )
+  {
+    pDebug.Log( "NULL buffer array in Buffer::Get(int)", __FILE__, __LINE__, LEVEL_WARNING );
     return NULL;
   }
 
-  if((index < 0) || (index >= size)) {
+  if ( ( index < 0 ) || ( index >= size ) )
+  {
     return NULL;
   }
 

@@ -28,19 +28,19 @@
 class Game
 {
 private:
- Renderer * renderer;
- 
+  Renderer* renderer;
+
 public:
-    Game ();
-   ~Game ();
+  Game();
+  ~Game();
 
-   void LoadMuls(std::string mulpath);
-   int Init(void);
-   int DeInit(void);
+  void LoadMuls( std::string mulpath );
+  int Init( void );
+  int DeInit( void );
 
-   Renderer * GetRenderer(void);
+  Renderer* GetRenderer( void );
 };
 
-extern	Game	pGame;
+extern Game pGame;
 
-#endif //_GAME_H_
+#endif  //_GAME_H_

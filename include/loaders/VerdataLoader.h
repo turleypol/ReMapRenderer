@@ -23,28 +23,30 @@
 #ifndef _VERDATALOADER_H_
 #define _VERDATALOADER_H_
 
-#include <fstream>
 #include "../uotype.h"
+#include <fstream>
 
-struct sPatchResult {
-	std::ifstream * file;
-	struct stIndexRecord index;
+struct sPatchResult
+{
+  std::ifstream* file;
+  struct stIndexRecord index;
 };
 
 class cVerdataLoader
 {
 private:
-	std::ifstream * verdatafile;
-	unsigned int patch_count;
+  std::ifstream* verdatafile;
+  unsigned int patch_count;
 
-	struct VerDataEntry * patches;
+  struct VerDataEntry* patches;
+
 public:
-    cVerdataLoader (std::string filename);
-   ~cVerdataLoader ();
-   
-   struct sPatchResult FindPatch (unsigned int fileid, unsigned int blockid);
+  cVerdataLoader( std::string filename );
+  ~cVerdataLoader();
+
+  struct sPatchResult FindPatch( unsigned int fileid, unsigned int blockid );
 };
 
-extern cVerdataLoader * pVerdataLoader;
+extern cVerdataLoader* pVerdataLoader;
 
-#endif //_VERDATALOADER_H_
+#endif  //_VERDATALOADER_H_

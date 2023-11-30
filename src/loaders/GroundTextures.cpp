@@ -3,111 +3,118 @@
 // Created by: Alexander Oster - tensor@ultima-iris.de
 //
 
-#include <cstring>
-#include <iostream>
-#include "SDL/SDL.h"
 #include "loaders/GroundTextures.h"
 #include "Debug.h"
+#include "SDL/SDL.h"
 #include "uotype.h"
+#include <cstring>
+#include <iostream>
 
 using namespace std;
 
 
-cGroundTextureLoader * pGroundTextureLoader = NULL;
+cGroundTextureLoader* pGroundTextureLoader = NULL;
 
-cGroundTextureLoader::cGroundTextureLoader (std::string filename, std::string indexname)
+cGroundTextureLoader::cGroundTextureLoader( std::string filename, std::string indexname )
 {
-    string errstr;
+  string errstr;
 
-    texmapsfile = new ifstream(filename.c_str(), ios::in | ios::binary);
-    if (!texmapsfile) {
-        pDebug.Log("Out of Memory in GroundTextureLoader::GroundTextureLoader", __FILE__, __LINE__,
-            LEVEL_ERROR);
-        return;
-    }
+  texmapsfile = new ifstream( filename.c_str(), ios::in | ios::binary );
+  if ( !texmapsfile )
+  {
+    pDebug.Log( "Out of Memory in GroundTextureLoader::GroundTextureLoader", __FILE__, __LINE__,
+                LEVEL_ERROR );
+    return;
+  }
 
-    texmapsindex = new ifstream(indexname.c_str(), ios::in | ios::binary);
-    if (!texmapsindex) {
-        delete texmapsfile;
-        texmapsfile = NULL;
-        pDebug.Log("Out of Memory in GroundTextureLoader::GroundTextureLoader", __FILE__, __LINE__,
-            LEVEL_ERROR);
-        return;
-    }
+  texmapsindex = new ifstream( indexname.c_str(), ios::in | ios::binary );
+  if ( !texmapsindex )
+  {
+    delete texmapsfile;
+    texmapsfile = NULL;
+    pDebug.Log( "Out of Memory in GroundTextureLoader::GroundTextureLoader", __FILE__, __LINE__,
+                LEVEL_ERROR );
+    return;
+  }
 
-    if (!texmapsfile->is_open()) {
-        errstr = "Could not load ground texture file: ";
-        errstr += filename;
-        pDebug.Log((char *)errstr.c_str(), __FILE__, __LINE__, LEVEL_ERROR);
-        delete texmapsfile;
-        delete texmapsindex;
-        texmapsfile = NULL;
-        texmapsindex = NULL;
-        return;
-    }
-
-    if (!texmapsindex->is_open()) {
-        errstr += indexname;
-        pDebug.Log((char *)errstr.c_str(), __FILE__, __LINE__, LEVEL_ERROR);
-        delete texmapsfile;
-        delete texmapsindex;
-        texmapsfile = NULL;
-        texmapsindex = NULL;
-        return;
-    }
-
-    texmapsindex->seekg(0, ios::end);
-    size_t idxE = texmapsindex->tellg();
-    groundtex_count = (unsigned int)(idxE / 12);
-}
-
-cGroundTextureLoader::~cGroundTextureLoader ()
-{
+  if ( !texmapsfile->is_open() )
+  {
+    errstr = "Could not load ground texture file: ";
+    errstr += filename;
+    pDebug.Log( (char*)errstr.c_str(), __FILE__, __LINE__, LEVEL_ERROR );
     delete texmapsfile;
     delete texmapsindex;
+    texmapsfile = NULL;
+    texmapsindex = NULL;
+    return;
+  }
+
+  if ( !texmapsindex->is_open() )
+  {
+    errstr += indexname;
+    pDebug.Log( (char*)errstr.c_str(), __FILE__, __LINE__, LEVEL_ERROR );
+    delete texmapsfile;
+    delete texmapsindex;
+    texmapsfile = NULL;
+    texmapsindex = NULL;
+    return;
+  }
+
+  texmapsindex->seekg( 0, ios::end );
+  size_t idxE = texmapsindex->tellg();
+  groundtex_count = (unsigned int)( idxE / 12 );
 }
 
-Texture * cGroundTextureLoader::LoadTexture(int index)
+cGroundTextureLoader::~cGroundTextureLoader()
 {
-    if ((index < 0) || ((unsigned int)index >= groundtex_count))
-        return NULL;
+  delete texmapsfile;
+  delete texmapsindex;
+}
 
-    struct stIndexRecord idx;
+Texture* cGroundTextureLoader::LoadTexture( int index )
+{
+  if ( ( index < 0 ) || ( (unsigned int)index >= groundtex_count ) )
+    return NULL;
 
-    texmapsindex->seekg(index * 12, ios::beg);
-    texmapsindex->read((char *)&idx, sizeof(struct stIndexRecord));
+  struct stIndexRecord idx;
 
-    if (idx.offset == 0xffffffff)
-        return NULL;
+  texmapsindex->seekg( index * 12, ios::beg );
+  texmapsindex->read( (char*)&idx, sizeof( struct stIndexRecord ) );
 
-    int size = (idx.extra == 1 ? 128 : 64);
+  if ( idx.offset == 0xffffffff )
+    return NULL;
 
-    if (idx.length != (unsigned int)(size * size * 2)) {
-        return NULL;
-    }
+  int size = ( idx.extra == 1 ? 128 : 64 );
 
-    char *sprite = (char *)malloc(size * size * 4);
-    Uint16 *temp = (Uint16 *)malloc(size * size * 2);
+  if ( idx.length != (unsigned int)( size * size * 2 ) )
+  {
+    return NULL;
+  }
 
-    texmapsfile->seekg(idx.offset, ios::beg);
-    texmapsfile->read((char *)temp, size * size * 2);
+  char* sprite = (char*)malloc( size * size * 4 );
+  Uint16* temp = (Uint16*)malloc( size * size * 2 );
 
-    Uint16 *src = temp;
-    Uint32 *dst = (Uint32 *)sprite;
+  texmapsfile->seekg( idx.offset, ios::beg );
+  texmapsfile->read( (char*)temp, size * size * 2 );
 
-    for (int i = 0; i < (size * size); i++) {
-        *dst =  color15to32(*src) | 0xff000000;
-        dst ++;
-        src++;
-    }
+  Uint16* src = temp;
+  Uint32* dst = (Uint32*)sprite;
 
-    free(temp);
+  for ( int i = 0; i < ( size * size ); i++ )
+  {
+    *dst = color15to32( *src ) | 0xff000000;
+    dst++;
+    src++;
+  }
 
-    Texture * texture = new Texture(index);
-    if (texture) {
-        texture->LoadFromData(sprite, size, size, 32);
-        free(sprite);
-    }
+  free( temp );
 
-    return texture;
+  Texture* texture = new Texture( index );
+  if ( texture )
+  {
+    texture->LoadFromData( sprite, size, size, 32 );
+    free( sprite );
+  }
+
+  return texture;
 }

@@ -7,29 +7,29 @@
 
 #include <string>
 
-#define LEVEL_MSG       0
-#define LEVEL_WARNING   1
-#define LEVEL_ERROR     2
-#define LEVEL_CRITICAL  3
-#define LEVEL_NONE      4
+#define LEVEL_MSG 0
+#define LEVEL_WARNING 1
+#define LEVEL_ERROR 2
+#define LEVEL_CRITICAL 3
+#define LEVEL_NONE 4
 
 class Debug
 {
 private:
-    int loglevel;
+  int loglevel;
 
 public:
-    Debug ();
-    ~Debug ();
+  Debug();
+  ~Debug();
 
-    void Log(const char * message, char * filename, int line, int level);
-    void Log(const char * message, int level = LEVEL_MSG);
-    void Log(std::string const& message) { Log (message.c_str()); }
-    int GetLoglevel(void);
-    void SetLoglevel(int loglevel);
+  void Log( const char* message, char* filename, int line, int level );
+  void Log( const char* message, int level = LEVEL_MSG );
+  void Log( std::string const& message ) { Log( message.c_str() ); }
+  int GetLoglevel( void );
+  void SetLoglevel( int loglevel );
 };
 
 
-extern	Debug	pDebug;
+extern Debug pDebug;
 
-#endif //_DEBUG_H_
+#endif  //_DEBUG_H_

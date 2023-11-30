@@ -31,15 +31,16 @@ struct staticentry;
 class MapLoader
 {
 public:
-   virtual void	LoadMapBlock( int x, int y, MulBlock * block ) = 0;
-   virtual struct staticinfo * LoadStatics(int x, int y, int &len) = 0;
+  virtual void LoadMapBlock( int x, int y, MulBlock* block ) = 0;
+  virtual struct staticinfo* LoadStatics( int x, int y, int& len ) = 0;
 
-   virtual unsigned int AddObject(unsigned int x, unsigned int y, int z, unsigned int tileid) = 0;
-   virtual unsigned int DelObject(unsigned int blockx, unsigned int blocky, unsigned int obj_id) = 0;
-   virtual void Save(char * filename) = 0;
-   virtual void Load(char * filename) = 0;
+  virtual unsigned int AddObject( unsigned int x, unsigned int y, int z, unsigned int tileid ) = 0;
+  virtual unsigned int DelObject( unsigned int blockx, unsigned int blocky,
+                                  unsigned int obj_id ) = 0;
+  virtual void Save( char* filename ) = 0;
+  virtual void Load( char* filename ) = 0;
 };
 
-extern MapLoader * pMapLoader;
+extern MapLoader* pMapLoader;
 
-#endif //_MAP_H_
+#endif  //_MAP_H_

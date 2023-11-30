@@ -3,7 +3,7 @@
 // Created by: Alexander Oster - tensor@ultima-iris.de
 //
 /*****
- *	
+ *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -32,17 +32,17 @@
 #include "Texture.h"
 
 class Renderer
-{	
+{
 public:
-   Renderer ();
-   virtual ~Renderer ();
-      
-   void Rebuild (int mx, int my);
-	
-   INT_Rect CalcRenderBox();
-   
+  Renderer();
+  virtual ~Renderer();
+
+  void Rebuild( int mx, int my );
+
+  INT_Rect CalcRenderBox();
+
 protected:
-   int hotspotx, hotspoty;
+  int hotspotx, hotspoty;
 };
 
-#endif //_CRenderer_H_
+#endif  //_CRenderer_H_

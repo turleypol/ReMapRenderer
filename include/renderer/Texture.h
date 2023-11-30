@@ -31,22 +31,22 @@ class Texture : public BufferEntry
 {
 private:
   unsigned int _id;
-  SDL_Surface * _surface;
+  SDL_Surface* _surface;
 
 public:
-    Texture (unsigned int id);
-   ~Texture ();
+  Texture( unsigned int id );
+  ~Texture();
 
-   int LoadFromData( void * data, int width, int height, int bits_per_pixel);
-   int LoadFromFile( const char * filename);
-   int Create16(int width, int height);
+  int LoadFromData( void* data, int width, int height, int bits_per_pixel );
+  int LoadFromFile( const char* filename );
+  int Create16( int width, int height );
 
-   int GetWidth ();
-   int GetHeight ();
-   
-   SDL_Surface * GetSurface () { return _surface; }
-   unsigned int GetId() {return _id;}
+  int GetWidth();
+  int GetHeight();
+
+  SDL_Surface* GetSurface() { return _surface; }
+  unsigned int GetId() { return _id; }
 };
 
 
-#endif //_TEXTURE_H_
+#endif  //_TEXTURE_H_
